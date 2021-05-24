@@ -1,0 +1,35 @@
+{
+    "type": [
+      "object"
+    ],
+    "properties": {
+        "id": {
+            "type": ["int", "null"],
+            "description": "The id of the episode."
+        },
+        "name": {
+            "type": ["string", "null"],
+            "description": "The name of the episode."
+        },
+        "air_date": {
+            "type": ["string", "null"],
+            "description": "The air date of the episode."
+        },
+        "episode": {
+            "type": ["string", "null"],
+            "description": "The code of the episode."
+        },
+        "characters": {
+            "type": ["array", "null"],
+            "description": "List of characters who have been seen in the episode."
+        },
+        "url": {
+            "type": ["string", "null"],
+            "description": "Link to the episode's own endpoint."
+        },
+        "created": {
+            "type": ["string", "null"],
+            "description": "Time at which the episode was created in the database."
+        }
+    }
+}

@@ -1,0 +1,55 @@
+{
+    "type": [
+      "object"
+    ],
+    "properties": {
+        "id": {
+            "type": ["int", "null"],
+            "description": "The id of the character."
+        },
+        "name": {
+            "type": ["string", "null"],
+            "description": "The name of the character."
+        },
+        "status": {
+            "type": ["string", "null"],
+            "description": "The status of the character ('Alive', 'Dead' or 'unknown')."
+        },
+        "species": {
+            "type": ["string", "null"],
+            "description": "The species of the character."
+        },
+        "type": {
+            "type": ["string", "null"],
+            "description": "The type or subspecies of the character."
+        },
+        "gender": {
+            "type": ["string", "null"],
+            "description": "The gender of the character ('Female', 'Male', 'Genderless' or 'unknown')."
+        },
+        "origin": {
+            "type": ["object", "null"],
+            "description": "Name and link to the character's origin location."
+        },
+        "location": {
+            "type": ["object", "null"],
+            "description": "Name and link to the character's last known location endpoint."
+        },
+        "image": {
+            "type": ["string", "null"],
+            "description": "(url) Link to the character's image. All images are 300x300px and most are medium shots or portraits since they are intended to be used as avatars."
+        },
+        "episode": {
+            "type": ["array", "null"],
+            "description": "(urls) List of episodes in which this character appeared."
+        },
+        "url": {
+            "type": ["string", "null"],
+            "description": "(url) Link to the character's own URL endpoint."
+        },
+        "created": {
+            "type": ["string", "null"],
+            "description": "Time at which the character was created in the database."
+        }
+    }
+}
