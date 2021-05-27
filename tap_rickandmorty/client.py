@@ -13,35 +13,29 @@ SCHEMAS_DIR = Path(__file__).parent / Path("./schemas")
 class RickAndMortyStream(RESTStream):
     """RickAndMorty stream class."""
 
-    url_base = "https://api.mysample.com"
-
-    # OR use a dynamic url_base:
-    # @property
-    # def url_base(self) -> str:
-    #     """Return the API URL root, configurable via tap settings."""
-    #     return self.config["api_url"]
+    url_base = "https://rickandmortyapi.com/api"
 
     @property
     def http_headers(self) -> dict:
-        """Return the http headers needed."""
-        headers = {}
-        if "user_agent" in self.config:
-            headers["User-Agent"] = self.config.get("user_agent")
-        # If not using an authenticator, you may also provide inline auth headers:
-        # headers["Private-Token"] = self.config.get("auth_token")
-        return headers
+        """No headers needed for this tap, since there's no auth"""
+        return {}
 
     def get_next_page_token(
         self, response: requests.Response, previous_token: Optional[Any]
     ) -> Optional[Any]:
         """Return a token for identifying next page or None if no more pages."""
-        # TODO: If pagination is required, return a token which can be used to get the
-        #       next page. If this is the final page, return "None" to end the
-        #       pagination loop.
-        next_page_token = response.headers.get("X-Next-Page", None)
-        if next_page_token:
+        resp_json = response.json()
+        
+        # the next token returns a whole URL, need to parse out the page number
+        next_page_url = resp_json.get("info").get("next")
+        
+        if next_page_url:
+            # do this the lazy / very bad way for now ;) 
+            next_page_token = int(next_page_url.split('page=', 1)[1])
             self.logger.debug(f"Next page token retrieved: {next_page_token}")
-        return next_page_token
+            return next_page_token
+
+        return None  # None means we're done. No more pages.
 
     def get_url_params(
         self, context: Optional[dict], next_page_token: Optional[Any]
@@ -55,24 +49,9 @@ class RickAndMortyStream(RESTStream):
             params["order_by"] = self.replication_key
         return params
 
-    def prepare_request_payload(
-        self, context: Optional[dict], next_page_token: Optional[Any]
-    ) -> Optional[dict]:
-        """Prepare the data payload for the REST API request.
-
-        By default, no payload will be sent (return None).
-        """
-        # TODO: Delete this method if no payload is required. (Most REST APIs.)
-        return None
-
     def parse_response(self, response: requests.Response) -> Iterable[dict]:
         """Parse the response and return an iterator of result rows."""
-        # TODO: Parse response body and return a set of records.
         resp_json = response.json()
-        for row in resp_json.get("<TODO>"):
+        for row in resp_json.get("results"):
             yield row
 
-    def post_process(self, row: dict, context: Optional[dict]) -> dict:
-        """As needed, append or transform raw data to match expected structure."""
-        # TODO: Delete this method if not needed.
-        return row

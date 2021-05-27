@@ -37,15 +37,15 @@
         },
         "image": {
             "type": ["string", "null"],
-            "description": "(url) Link to the character's image. All images are 300x300px and most are medium shots or portraits since they are intended to be used as avatars."
+            "description": "Link to the character's image. All images are 300x300px and most are medium shots or portraits since they are intended to be used as avatars."
         },
         "episode": {
             "type": ["array", "null"],
-            "description": "(urls) List of episodes in which this character appeared."
+            "description": "List of episodes in which this character appeared."
         },
         "url": {
             "type": ["string", "null"],
-            "description": "(url) Link to the character's own URL endpoint."
+            "description": "Link to the character's own URL endpoint."
         },
         "created": {
             "type": ["string", "null"],
